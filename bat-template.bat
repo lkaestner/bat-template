@@ -74,14 +74,14 @@ exit /b 0
 
 :: print a line of dashes
 :dashes
-	echo:
-	echo ----------------------------------------------------------------------
+    echo:
+    echo ----------------------------------------------------------------------
 exit /b 0
 
 :: check if test-string contains match-keyword
 :string_contains
-	set test=%~1
-	set match=bad
+    set test=%~1
+    set match=bad
     echo "%test%" | findstr /r "%match%" >nul && (
         echo %test% contains %match%
     )
@@ -90,8 +90,8 @@ exit /b 0
 :: get current working dir and location of bat-file
 :get_current_dir
     echo Working directory: %cd%
-	set script_dir=%~dp0
-	set script_dir=%script_dir:~0,-1%
+    set script_dir=%~dp0
+    set script_dir=%script_dir:~0,-1%
     echo Script directory:  %script_dir%
 exit /b 0
 
@@ -109,44 +109,44 @@ exit /b 0
     for /f "delims=" %%i in ('dir /b /a:dh "%homepath%"') do (
         echo %%i
     )
-	:: /a:d only folders     /a-d no folders
-	:: /a:h only hidden      /a-h no hidden
-	:: /a:dh only hidden folders
+    :: /a:d only folders     /a-d no folders
+    :: /a:h only hidden      /a-h no hidden
+    :: /a:dh only hidden folders
 exit /b 0
 
 :: iterate over all *.tmp files in homepath (recursive)
 :files_recurse
     for /f "tokens=* delims=" %%i in ('dir /b /s "%homepath%\*.tmp" ') do (
-		echo %%i
-	)
+        echo %%i
+    )
 exit /b 0
 
 :: decompose a path into directory, filename and extension components
 :filename_decompose
-	set cmd_path=%COMSPEC%
-	for %%A in ("%cmd_path%") do (
-		set cmd_dir=%%~dpA
-		set cmd_name=%%~nxA
-		set cmd_ext=%%~xA
-	)
-	echo CMD path: %cmd_path%
-	echo CMD dir:  %cmd_dir%
-	echo CMD name: %cmd_name%
-	echo CMD ext:  %cmd_ext%
+    set cmd_path=%COMSPEC%
+    for %%A in ("%cmd_path%") do (
+        set cmd_dir=%%~dpA
+        set cmd_name=%%~nxA
+        set cmd_ext=%%~xA
+    )
+    echo CMD path: %cmd_path%
+    echo CMD dir:  %cmd_dir%
+    echo CMD name: %cmd_name%
+    echo CMD ext:  %cmd_ext%
 exit /b 0
 
 :: print current date
 :get_date
-	for /f "delims=" %%a in ('wmic OS Get localdatetime  ^| find "."') do set "dt=%%a"
-	set "YYYY=%dt:~0,4%"
-	set "MM=%dt:~4,2%"
-	set "DD=%dt:~6,2%"
-	set "HH=%dt:~8,2%"
-	set "Min=%dt:~10,2%"
-	set "Sec=%dt:~12,2%"
+    for /f "delims=" %%a in ('wmic OS Get localdatetime  ^| find "."') do set "dt=%%a"
+    set "YYYY=%dt:~0,4%"
+    set "MM=%dt:~4,2%"
+    set "DD=%dt:~6,2%"
+    set "HH=%dt:~8,2%"
+    set "Min=%dt:~10,2%"
+    set "Sec=%dt:~12,2%"
 
-	set timestamp=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%
-	echo Timestamp: "%timestamp%"
+    set timestamp=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%
+    echo Timestamp: "%timestamp%"
 exit /b 0
 
 :: set a permanent system variable (this function is not being called)
